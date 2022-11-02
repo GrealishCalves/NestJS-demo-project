@@ -1,5 +1,7 @@
+import Joi from '@hapi/joi';
 import { Injectable } from '@nestjs/common';
 import { ConfigService, ConfigModuleOptions } from '@nestjs/config';
+import { configSchema } from 'src/database/postgres.schema';
 import { IConfigServices } from './interfaces/IConfigServices';
 
 @Injectable()
@@ -9,16 +11,25 @@ export class ConfigServices implements IConfigServices {
     throw new Error('Method not implemented.');
   }
 
+  /**
+   * Return an object with a port property that is a string.
+   * @returns An object with a port property.
+   */
   public getAppPort(): { port: string } {
     return {
       port: this.getString('PORT'),
     };
   }
 
+  /**
+   * It returns an object that tells NestJS how to load the configuration
+   * @returns The return value is a ConfigModuleOptions object.
+   */
   public static getConfigModule(): ConfigModuleOptions {
     return {
       envFilePath: '.env',
       isGlobal: true,
+      validationSchema: configSchema,
     };
   }
 
