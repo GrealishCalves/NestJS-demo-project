@@ -10,8 +10,6 @@ export interface IResponse {
   statusMessage: string;
 }
 
-export interface IError {
-  status?: string;
-  timestamp: string;
-  message: string;
+export interface IError extends Error {
+  error: string | object;
 }
