@@ -6,6 +6,12 @@ import * as fs from 'fs';
 
 @Injectable()
 export class TransformInterceptor<T> implements NestInterceptor<T, Response<T>> {
+  /**
+   * It intercepts the response from the controller and transforms it into a plain object
+   * @param {ExecutionContext} context - ExecutionContext - The context of the request.
+   * @param {CallHandler} next - CallHandler - The next interceptor in the chain.
+   * @returns The response object is being returned.
+   */
   intercept(context: ExecutionContext, next: CallHandler): Observable<Response<T>> {
     return next.handle().pipe(
       map((data) => {
@@ -21,6 +27,11 @@ export class TransformInterceptor<T> implements NestInterceptor<T, Response<T>> 
     );
   }
 
+  /**
+   * It takes the request and response objects from the context, and then creates a log object with the
+   * request and response data
+   * @param {ExecutionContext} context - ExecutionContext - The context of the request.
+   */
   private logger(context: ExecutionContext) {
     const request = context.switchToHttp().getRequest();
     const response = context.switchToHttp().getResponse();
@@ -37,16 +48,20 @@ export class TransformInterceptor<T> implements NestInterceptor<T, Response<T>> 
         params: request.params,
         query: request.query,
       },
-    //   response: {
-    //     body: response.body,
-    //     params: response.params,
-    //     query: response.query,
-    //   },
+      //   response: {
+      //     body: response.body,
+      //     params: response.params,
+      //     query: response.query,
+      //   },
     };
 
     this.writeLog(log);
   }
 
+  /**
+   * It takes a log object, converts it to a string, and appends it to a file
+   * @param {any} log - The log object that you want to write to the log file.
+   */
   private writeLog(log: any) {
     const data = `${JSON.stringify(log)}\r\n`;
     fs.appendFile('Logs.log', data, 'utf8', (err) => {
