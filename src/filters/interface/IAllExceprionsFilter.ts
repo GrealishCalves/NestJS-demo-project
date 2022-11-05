@@ -1,3 +1,5 @@
+import { HttpException } from '@nestjs/common';
+
 export interface IRequest {
   url: string;
   method: string;
@@ -10,6 +12,13 @@ export interface IResponse {
   statusMessage: string;
 }
 
-export interface IError extends Error {
-  error: string | object;
+export interface IError {
+  statusCode: number;
+  message: string;
+}
+
+export interface IErrorLog {
+  error: TypeError | Error | object;
+  timestamp: string;
+  uuid: string;
 }
