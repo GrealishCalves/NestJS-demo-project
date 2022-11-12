@@ -1,8 +1,9 @@
 import { Body, Get } from '@nestjs/common';
 import { Post } from '@nestjs/common';
 import { Controller, Inject } from '@nestjs/common';
-import { Routs } from 'src/common/routs';
-import { Services } from 'src/common/services';
+import { Routs } from 'src/common/constants/routs';
+import { Services } from 'src/common/constants/services';
+import { CreateUserDto } from './dto/create-user.dto';
 import { IUserService } from './interface/IUserService';
 
 @Controller('user')
@@ -16,7 +17,7 @@ export class UserController {
   }
 
   @Post(Routs.CREATEUSER)
-  async createUser(@Body() body: any) {
-    return await this.userService.createUser(body);
+  async createUser(@Body() createUserDto: CreateUserDto) {
+    return await this.userService.createUser(createUserDto);
   }
 }

@@ -1,29 +1,23 @@
 import { Exclude } from 'class-transformer';
 import { IsEmail } from 'class-validator';
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity } from './base.entity';
 
 @Entity({ name: 'users' })
-export class User {
+export class UserEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'first_name' })
+  @Column({ type: 'varchar', length: 20, nullable: false })
   firstName: string;
 
-  @Column({ name: 'last_name' })
+  @Column({ type: 'varchar', length: 20, nullable: false })
   lastName: string;
 
-  @Column({ unique: true })
+  @Column({ type: 'varchar', length: 20, nullable: false })
   username: string;
 
-  @Column({ select: false })
+  @Column({ type: 'varchar', length: 20, nullable: false })
   @Exclude()
   password: string;
-
-  @IsEmail()
-  @Column({ name: 'email' })
-  email: string;
-
-  @CreateDateColumn({ name: 'create_at' })
-  createAt: Date;
 }
