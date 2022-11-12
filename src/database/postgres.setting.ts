@@ -6,20 +6,20 @@ import { ConfigService } from '@nestjs/config';
 export class DatabaseConnectionService implements TypeOrmOptionsFactory {
   constructor(private configService: ConfigService) {}
 
-/**
- * It returns an object that contains the Postgres configuration
- * @returns The TypeOrmModuleOptions object.
- */
+  /**
+   * It returns an object that contains the Postgres configuration
+   * @returns The TypeOrmModuleOptions object.
+   */
   createTypeOrmOptions(): TypeOrmModuleOptions {
     return {
       ...this.postgresConfig,
     };
   }
 
-/**
- * It returns a TypeOrmModuleOptions object that contains the database connection information
- * @returns The postgresConfig is being returned.
- */
+  /**
+   * It returns a TypeOrmModuleOptions object that contains the database connection information
+   * @returns The postgresConfig is being returned.
+   */
   get postgresConfig(): TypeOrmModuleOptions {
     return {
       entities: [__dirname + '/**/*.entity{.ts,.js}'],

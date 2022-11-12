@@ -41,7 +41,6 @@ export class AllExceptionsFilter implements ExceptionFilter {
    */
   private getResponseError(exception: HttpException): IError {
     const error: any = exception.getResponse();
-
     const log: IErrorLog = {
       error,
       timestamp: new Date().toISOString(),
