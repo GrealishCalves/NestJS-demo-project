@@ -13,6 +13,7 @@ async function bootstrap() {
   app.useGlobalFilters(new AllExceptionsFilter());
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(new TransformInterceptor());
+
   const configService = app.select(SharedModule).get(ConfigServices);
   const port = configService.getAppPort().port;
 

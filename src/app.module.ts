@@ -4,17 +4,17 @@ import { SharedModule } from './shared/shared.module';
 import { ConfigServices } from './shared/services/app-settings.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DatabaseConnectionService } from './database/postgres.setting';
-import { UserModule } from './user/user.module';
+import { UserModule } from './modules/user/user.module';
 import { LoggerMiddleware } from './middleware/logger.middleware';
 
 @Module({
   imports: [
     SharedModule,
+    UserModule,
     ConfigModule.forRoot(ConfigServices.getConfigModule()),
     TypeOrmModule.forRootAsync({
       useClass: DatabaseConnectionService,
     }),
-    UserModule,
   ],
   controllers: [],
   providers: [],
