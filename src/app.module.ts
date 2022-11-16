@@ -5,7 +5,6 @@ import { ConfigServices } from './shared/services/app-settings.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DatabaseConnectionService } from './database/postgres.setting';
 import { UserModule } from './modules/user/user.module';
-import { LoggerMiddleware } from './middleware/logger.middleware';
 
 @Module({
   imports: [
