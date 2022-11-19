@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Services } from 'src/common/constants/services';
 import { UserEntity } from 'src/database/entities/uesr.entity';
-import { validateUser } from '../types/IValidateUser';
+import { validateUser } from './types/IValidateUser';
 import { IUserService } from '../user/interface/IUserService';
 
 @Injectable()
