@@ -1,13 +1,19 @@
-import { Controller, Post, Request, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Routes } from 'src/common/constants/routes';
-import { LocalAuthGuard } from './guards/auth.guard';
+import { AuthenticatedGuard, LocalAuthGuard } from './guards/LocalStrategy.guard';
 
 @Controller('auth')
 export class AuthController {
   @Post(Routes.LOGIN)
-  @UseGuards(AuthGuard('local'), LocalAuthGuard)
+  @UseGuards(LocalAuthGuard)
   async login(@Request() req) {
+    return req.user;
+  }
+
+  @UseGuards(AuthenticatedGuard)
+  @Get('protected')
+  async testProtection(@Request() req) {
     return req.user;
   }
 }

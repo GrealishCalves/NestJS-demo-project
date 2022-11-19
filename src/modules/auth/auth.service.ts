@@ -9,7 +9,7 @@ export class AuthService {
   constructor(@Inject(Services.USERS) private readonly userService: IUserService) {}
 
   async validateUser(username: string, pass: string): Promise<validateUser | null> {
-    const user = await this.userService.findUser({ username });
+    const user = await this.userService.findUser({ username }, { selectPassword: true });
     if (user && user.password === pass) {
       const { password, ...result } = user;
       return result;

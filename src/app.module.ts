@@ -7,12 +7,14 @@ import { DatabaseConnectionService } from './database/postgres.setting';
 import { UserModule } from './modules/user/user.module';
 import { LoggerMiddleware } from './middleware/logger.middleware';
 import { AuthModule } from './modules/auth/auth.module';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
   imports: [
     SharedModule,
     UserModule,
     AuthModule,
+    PassportModule.register({ session: true }),
     ConfigModule.forRoot(ConfigServices.getConfigModule()),
     TypeOrmModule.forRootAsync({
       useClass: DatabaseConnectionService,
