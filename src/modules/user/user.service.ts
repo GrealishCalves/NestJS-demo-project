@@ -1,18 +1,20 @@
 import { ConflictException } from '@nestjs/common';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { getUserSelectors } from 'src/common/helpers';
 import { UserEntity } from 'src/database/entities/uesr.entity';
 import { UserFoundException } from 'src/exceptions/UsernameFoundExceptions';
 import { Repository } from 'typeorm';
 import { IUserService } from './interface/IUserService';
-import { CreateUserParams, FindUserParams } from './types/user.types';
+import { CreateUserParams, FindManyOptions, FindUserParams } from './types/user.types';
 
 @Injectable()
 export class UserService implements IUserService {
   constructor(@InjectRepository(UserEntity) private readonly userRepository: Repository<UserEntity>) {}
 
-  async findUser(param: FindUserParams): Promise<UserEntity | undefined> {
-    return await this.userRepository.findOne({ where: param });
+  async findUser(param: FindUserParams, options?: FindManyOptions): Promise<UserEntity | undefined> {
+    const select = getUserSelectors(options?.selectPassword);
+    return await this.userRepository.findOne({ where: param, select });
   }
 
   async createUser(param: CreateUserParams): Promise<UserEntity> {
