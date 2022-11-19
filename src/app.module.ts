@@ -6,11 +6,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DatabaseConnectionService } from './database/postgres.setting';
 import { UserModule } from './modules/user/user.module';
 import { LoggerMiddleware } from './middleware/logger.middleware';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
     SharedModule,
     UserModule,
+    AuthModule,
     ConfigModule.forRoot(ConfigServices.getConfigModule()),
     TypeOrmModule.forRootAsync({
       useClass: DatabaseConnectionService,
