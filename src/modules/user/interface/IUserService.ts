@@ -1,7 +1,7 @@
 import { UserEntity } from 'src/database/entities/uesr.entity';
-import { CreateUserParams, FindUserParams } from '../types/user.types';
+import { CreateUserParams, FindManyOptions, FindUserParams } from '../types/user.types';
 
 export interface IUserService {
-  findUser(param: FindUserParams): Promise<UserEntity | undefined>;
+  findUser(param: FindUserParams, options?: FindManyOptions): Promise<UserEntity | undefined>;
   createUser(param: CreateUserParams): Promise<UserEntity>;
 }
